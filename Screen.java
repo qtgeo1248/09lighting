@@ -13,7 +13,7 @@ public class Screen {
         }
     }
 
-    public void plot(double x, double y, double z, Color ex) {
+    public void plot(double x, double y, double z, Color ex, Vector eye) {
         int newy = screen.length - 1 - (int)y;
         if (x >= 0 && x < screen[0].length && newy >= 0 && newy < screen.length) {
             if (z > screen[newy][(int)x].getZ()) {
@@ -50,27 +50,6 @@ public class Screen {
             writer.write(" ");
             writer.close();
         } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void display(String file) {
-        file(file);
-        ProcessBuilder pb = new ProcessBuilder();
-        pb.command("display", file);
-        try {
-            Process p = pb.start();
-            BufferedReader r = new BufferedReader(new InputStreamReader(p.getInputStream()));
-
-            String line;
-            while ((line = r.readLine()) != null) {
-                System.out.println(line);
-            }
-            int exitCode = p.waitFor();
-            System.out.println("\nExited with error code : " + exitCode);
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (InterruptedException e) {
             e.printStackTrace();
         }
     }
@@ -155,12 +134,13 @@ public class Screen {
         }
     }
 
-    private boolean isFront(PointMatrix mat, int i) {
-        Vector v1 = new Vector(mat, i, i + 1);
-        Vector v2 = new Vector(mat, i, i + 2);
-        Vector norm = v1.crossProd(v2);
-        Vector eye = new Vector(0, 0, 1);
+    private boolean isFront(Vector eye, PointMatrix mat, int i) {
+        Vector norm = Vector.norm(mat, i);
         return norm.dotProd(eye) > 0;
+    }
+
+    private Color lighting(Vector eye, PointMatrix mat, int i) {
+        Vector norm = Vector.norm(mat, i);
     }
 
     public void line(double x0, double y0, double z0, double x1, double y1, double z1, Color ex) {

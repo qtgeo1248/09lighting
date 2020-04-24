@@ -55,4 +55,15 @@ public class Color {
             return false; //if you inputted something wrong
         }
     }
+
+    public void limit() {
+        for (int i = 0; i < 3; i++) {
+            if (getColor(i) < 0) {
+                setColor(i, 0)
+            }
+            if (getColor(i) > 255) {
+                setColor(i, 255);
+            }
+        }
+    }
 }
