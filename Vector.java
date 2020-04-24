@@ -88,6 +88,6 @@ public class Vector {
     private double specLight(Vector eye, Vector ray, Color light, Color kSpec, int col) {
         mult(2 * dotProd(ray));
         Vector cur = minus(ray);
-        return light.getColor(col) * kSpec.getColor(col) * Math.pow(cur.dotProd(eye), 4);
+        return light.getColor(col) * kSpec.getColor(col) * Math.pow(cur.dotProd(eye), 5);
     }
 }

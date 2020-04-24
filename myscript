@@ -38,9 +38,15 @@ box
 0 -150 20 10 -10 -80
 push
 rotate
-x 90
+x 120
 torus
-0 120 100 10 20
+0 160 40 10 20
+circle
+5 160 40 10 10
+circle
+0 160 30 10 10
+circle
+15 160 40 10 10
 pop
 pop
 push

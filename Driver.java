@@ -19,11 +19,11 @@ public class Driver {
         ident.ident();
         cs.push(ident);
         Screen s = new Screen(XMAX, YMAX);
-        Color ex = new Color(0, 255, 0);
+        Color ex = new Color(255, 192, 203);
         Vector eye = new Vector(0, 0, 1);
         Vector ray = new Vector(0.5, 0.75, 1);
-        Color light = new Color(0, 255, 255);
-        Color amb = new Color(50, 50, 50);
+        Color light = new Color(0, 255, 0);
+        Color amb = new Color(50, 250, 50);
         Color kAmb = new Color(0.1, 0.1, 0.1);
         Color kDiff = new Color(0.5, 0.5, 0.5);
         Color kSpec = new Color(0.5, 0.5, 0.5);
