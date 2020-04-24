@@ -13,7 +13,7 @@ public class Screen {
         }
     }
 
-    public void plot(double x, double y, double z, Color ex, Vector eye) {
+    public void plot(double x, double y, double z, Color ex) {
         int newy = screen.length - 1 - (int)y;
         if (x >= 0 && x < screen[0].length && newy >= 0 && newy < screen.length) {
             if (z > screen[newy][(int)x].getZ()) {
@@ -43,7 +43,7 @@ public class Screen {
                 for (int j = 0; j < screen[i].length; j++) {
                     Color cur = screen[i][j];
                     for (int col = 0; col < 3; col++) {
-                        writer.write(" " + screen[i][j].getColor(col));
+                        writer.write(" " + (int)screen[i][j].getColor(col));
                     }
                 }
             }
@@ -61,13 +61,13 @@ public class Screen {
         }
     }
 
-    public void drawPolygons(PointMatrix mat, Color ex) {
+    public void drawPolygons(PointMatrix mat, Vector eye, Vector ray, Color amb, Color light, Color kAmb, Color kDiff, Color kSpec) {
         for (int j = 0; j < mat.numCols() - 2; j += 3) {
-            Color thing = new Color(0, 255 - 17 * (15 - (((j / 3) % 10) + 4)), 0);
-            if (isFront(mat, j)) {
+            if (isFront(mat, j, eye)) {
+                Color col = lighting(mat, j, eye, ray, amb, light, kAmb, kDiff, kSpec);
                 scanFill(mat.getEl(0, j), mat.getEl(1, j), mat.getEl(2, j),
                          mat.getEl(0, j + 1), mat.getEl(1, j + 1), mat.getEl(2, j + 1),
-                         mat.getEl(0, j + 2), mat.getEl(1, j + 2), mat.getEl(2, j + 2), thing);
+                         mat.getEl(0, j + 2), mat.getEl(1, j + 2), mat.getEl(2, j + 2), col);
             }
         }
     }
@@ -134,13 +134,14 @@ public class Screen {
         }
     }
 
-    private boolean isFront(Vector eye, PointMatrix mat, int i) {
+    private boolean isFront(PointMatrix mat, int i, Vector eye) {
         Vector norm = Vector.norm(mat, i);
         return norm.dotProd(eye) > 0;
     }
 
-    private Color lighting(Vector eye, PointMatrix mat, int i) {
+    private Color lighting(PointMatrix mat, int i, Vector eye, Vector ray, Color amb, Color light, Color kAmb, Color kDiff, Color kSpec) {
         Vector norm = Vector.norm(mat, i);
+        return norm.lighting(eye, ray, amb, light, kAmb, kDiff, kSpec);
     }
 
     public void line(double x0, double y0, double z0, double x1, double y1, double z1, Color ex) {

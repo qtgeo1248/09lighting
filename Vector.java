@@ -66,7 +66,8 @@ public class Vector {
             double L = ambLight(amb, kAmb, i) + diffLight(ray, light, kDiff, i) + specLight(eye, ray, light, kSpec, i);
             toReturn.setColor(i, (int)L);
         }
-        return toReturn.limit();
+        toReturn.limit();
+        return toReturn;
     }
 
     private double ambLight(Color amb, Color kAmb, int col) {

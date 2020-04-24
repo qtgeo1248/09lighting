@@ -1,7 +1,7 @@
 public class Color {
-    private int r;
-    private int g;
-    private int b;
+    private double r;
+    private double g;
+    private double b;
     private double z;
 
     public Color(int rx, int gy, int bz, double zcoord) {
@@ -18,7 +18,7 @@ public class Color {
         z = -1 * Double.MAX_VALUE;
     }
 
-    public int getColor(int col) { //red is 0, green is 1, blue is 2
+    public double getColor(int col) { //red is 0, green is 1, blue is 2
         if (col == 0) {
             return r;
         } else if (col == 1) {
@@ -38,7 +38,7 @@ public class Color {
         z = zcoord;
     }
 
-    public boolean setColor(int col, int val) { //red is 0, green is 1, blue is 2
+    public boolean setColor(int col, double val) { //red is 0, green is 1, blue is 2
         if (val == -1) {
             return false; //the getColor did something wrong
         }
@@ -59,7 +59,7 @@ public class Color {
     public void limit() {
         for (int i = 0; i < 3; i++) {
             if (getColor(i) < 0) {
-                setColor(i, 0)
+                setColor(i, 0);
             }
             if (getColor(i) > 255) {
                 setColor(i, 255);

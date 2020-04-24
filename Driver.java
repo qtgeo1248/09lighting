@@ -20,6 +20,12 @@ public class Driver {
         cs.push(ident);
         Screen s = new Screen(XMAX, YMAX);
         Color ex = new Color(0, 255, 0);
+        Vector eye = new Vector(0, 0, 0);
+        Vector ray = new Vector(0.5, 0.75, 1);
+        Color light = new Color(0, 255, 255);
+        Color amb = new Color(50, 50, 50);
+        Color kAmb = new Color(0.1, 0.1, 0.1);
+        Color kDiff = new Color(0.5, 0.5, 0.5);
         try {
             File f = new File(file);
             Scanner in = new Scanner(f);
@@ -53,19 +59,19 @@ public class Driver {
                     int[] co = parseArgs(in.nextLine());
                     polygons.addBox(co[0], co[1], co[2], co[3], co[4], co[5]);
                     polygons.leftMult(cs.peek());
-                    s.drawPolygons(polygons, ex);
+                    s.drawPolygons(polygons, eye, ray, amb, light, kAmb, kDiff, kSpec);
                     polygons.clear();
                 } else if (line.equals("sphere")) {
                     int[] co = parseArgs(in.nextLine());
                     polygons.addSphere(co[0], co[1], co[2], co[3], 20);
                     polygons.leftMult(cs.peek());
-                    s.drawPolygons(polygons, ex);
+                    s.drawPolygons(polygons, eye, ray, amb, light, kAmb, kDiff, kSpec);
                     polygons.clear();
                 } else if (line.equals("torus")) {
                     int[] co = parseArgs(in.nextLine());
                     polygons.addTorus(co[0], co[1], co[2], co[3], co[4], 20);
                     polygons.leftMult(cs.peek());
-                    s.drawPolygons(polygons, ex);
+                    s.drawPolygons(polygons, eye, ray, amb, light, kAmb, kDiff, kSpec);
                     polygons.clear();
                 } else if (line.equals("scale")) {
                     int[] r = parseArgs(in.nextLine());
