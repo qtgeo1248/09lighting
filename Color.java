@@ -4,14 +4,14 @@ public class Color {
     private double b;
     private double z;
 
-    public Color(int rx, int gy, int bz, double zcoord) {
+    public Color(double rx, double gy, double bz, double zcoord) {
         r = rx;
         g = gy;
         b = bz;
         z = zcoord;
     }
 
-    public Color(int rx, int gy, int bz) {
+    public Color(double rx, double gy, double bz) {
         r = rx;
         g = gy;
         b = bz;

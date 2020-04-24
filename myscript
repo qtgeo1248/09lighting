@@ -52,7 +52,5 @@ sphere
 30 30 30 5
 sphere
 -30 30 30 5
-circle
-100 0 30 10
 save
 eating.png

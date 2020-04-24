@@ -84,9 +84,9 @@ public class Screen {
             scanFill(x0, y0, z0, x2, y2, z2, x1, y1, z1, ex);
             return;
         } else {
-            double dxL = (x2 - x0) / (y2 - y0);
+            double dxL = (x2 - x0) / (y2 - y0 + 1);
             double xL = x0;
-            double dzL = (z2 - z0) / (y2 - y0);
+            double dzL = (z2 - z0) / (y2 - y0 + 1);
             double zL = z0;
             if (y0 != y1) {
                 double dxR = (x1 - x0) / (y1 - y0);
@@ -104,9 +104,9 @@ public class Screen {
                 scanLine(x0, z0, x1, z1, y0, ex);
             }
             if (y1 != y2) {
-                double dxR = (x2 - x1) / (y2 - y1);
+                double dxR = (x2 - x1) / (y2 - y1 + 1);
                 double xR = x1;
-                double dzR = (z2 - z1) / (y2 - y1);
+                double dzR = (z2 - z1) / (y2 - y1 + 1);
                 double zR = z1;
                 for (double y = y1; y <= y2; y++) {
                     scanLine(xL, zL, xR, zR, y, ex);

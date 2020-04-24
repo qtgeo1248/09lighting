@@ -60,11 +60,18 @@ public class Vector {
         return norm;
     }
 
+    public Vector normalize() {
+        return mult(1 / Math.sqrt(x * x + y * y + z * z));
+    }
+
     public Color lighting(Vector eye, Vector ray, Color amb, Color light, Color kAmb, Color kDiff, Color kSpec) {
         Color toReturn = new Color(0, 0, 0);
+        Vector newNorm = normalize();
+        Vector newEye = eye.normalize();
+        Vector newRay = ray.normalize();
         for (int i = 0; i < 3; i++) {
-            double L = ambLight(amb, kAmb, i) + diffLight(ray, light, kDiff, i) + specLight(eye, ray, light, kSpec, i);
-            toReturn.setColor(i, (int)L);
+            double L = newNorm.ambLight(amb, kAmb, i) + newNorm.diffLight(newRay, light, kDiff, i) + newNorm.specLight(newEye, newRay, light, kSpec, i);
+            toReturn.setColor(i, L);
         }
         toReturn.limit();
         return toReturn;
@@ -79,7 +86,8 @@ public class Vector {
     }
 
     private double specLight(Vector eye, Vector ray, Color light, Color kSpec, int col) {
-        Vector cur = mult(2 * dotProd(ray)).minus(ray);
-        return light.getColor(col) * kSpec.getColor(col) * Math.pow(cur.dotProd(eye), 10);
+        mult(2 * dotProd(ray));
+        Vector cur = minus(ray);
+        return light.getColor(col) * kSpec.getColor(col) * Math.pow(cur.dotProd(eye), 4);
     }
 }
